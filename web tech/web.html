@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairColor & Spa Haven</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        header .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        header a {
+            padding: 10px 20px;
+            background: #ff6b81;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        header a:hover {
+            background: #ff4755;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b81;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6b81;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Home Section */
+        /* Already styled in header */
+
+        /* Services Section */
+        #services {
+            background: #f9f9f9;
+        }
+
+        #services h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-10px);
+        }
+
+        .service img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .service h3 {
+            margin-bottom: 10px;
+            color: #ff6b81;
+        }
+
+        .service p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            text-align: center;
+        }
+
+        #gallery h2 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* About Us Section */
+        #about {
+            background: #f9f9f9;
+        }
+
+        #about h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-content img {
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .about-content div {
+            max-width: 600px;
+        }
+
+        .about-content h3 {
+            margin-bottom: 15px;
+            color: #ff6b81;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Blog Section */
+        #blog {
+            text-align: center;
+        }
+
+        #blog h2 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .blog-post {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-post img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .blog-post h3 {
+            margin-bottom: 10px;
+            color: #ff6b81;
+        }
+
+        .blog-post p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .blog-post a {
+            text-decoration: none;
+            color: #ff6b81;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .blog-post a:hover {
+            color: #ff4755;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #f9f9f9;
+        }
+
+        #contact h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 15px;
+            color: #ff6b81;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #ff4755;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer .socials a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        footer .socials a:hover {
+            color: #ff6b81;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">HairColor & Spa</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header / Home Section -->
+    <header id="home">
+        <div class="content">
+            <h1>Welcome to HairColor & Spa Haven</h1>
+            <p>Your ultimate destination for stunning hair transformations and luxurious spa treatments.</p>
+            <a href="#contact">Book Now</a>
+        </div>
+
+    </header>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-container">
+            <div class="service">
+                <img src="h2.jpg" alt="Hair Coloring">
+                <h3>Hair Coloring</h3>
+                <p>Expert colorists offering balayage, ombre, highlights, and custom color services to enhance your beauty.</p>
+            </div>
+            <div class="service">
+                <img src="hair1.jpg" alt="Hair Styling">
+                <h3>Hair Styling</h3>
+                <p>From elegant updos to trendy cuts, our stylists ensure you leave looking and feeling fabulous.</p>
+            </div>
+            <div class="service">
+                <img src="hair4.jpg" alt="Spa Treatments">
+                <h3>Spa Treatments</h3>
+                <p>Relax and rejuvenate with our range of spa services including massages, facials, and body treatments.</p>
+            </div>
+            <div class="service">
+                <img src="nail.jpg" alt="Nail Services">
+                <h3>Nail Services</h3>
+                <p>Manicures, pedicures, and nail art designed to pamper your hands and fee09t to perfection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="w1.jpg" alt="Gallery Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="w2.jpg" alt="Gallery Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="w3.jpg" alt="Gallery Image 3">
+            </div>
+            <div class="gallery-item">
+                <img src="w8.jpg" alt="Gallery Image 4">
+            </div>
+            <div class="gallery-item">
+                <img src="w5.jpg" alt="Gallery Image 5">
+            </div>
+            <div class="gallery-item">
+                <img src="w7.jpg" alt="Gallery Image 6">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="about-content">
+            <img src="w9.jpg" alt="About Us Image">
+            <div>
+                <h3>Our Mission</h3>
+                <p>At HairColor & Spa Haven, our mission is to empower our clients by enhancing their natural beauty and providing a sanctuary for relaxation and rejuvenation.</p>
+                <p>With over 10 years of experience, our team of expert stylists and therapists are dedicated to delivering exceptional services tailored to your unique needs.</p>
+                <p>We believe in using high-quality, organic products to ensure the best results and a healthy experience for our clients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <h2>Latest Blog Posts</h2>
+        <div class="blog-container">
+            <div class="blog-post">
+                <img src="b1.jpg" alt="Blog Post 1">
+                <h3>Top 5 Hair Color Trends for 2024</h3>
+                <p>Discover the hottest hair color trends that are set to dominate this year, from vibrant hues to subtle highlights.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="b2.jpg" alt="Blog Post 2">
+                <h3>Benefits of Regular Spa Treatments</h3>
+                <p>Learn how regular spa treatments can improve your physical and mental well-being, and why you should make them a part of your routine.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="b3.jpg" alt="Blog Post 3">
+                <h3>Choosing the Right Hair Color for Your Skin Tone</h3>
+                <p>Find out how to select a hair color that complements your skin tone and enhances your natural beauty.</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p><strong>Address:</strong> 123 Beauty Avenue, Glamour City, ST 45678</p>
+                <p><strong>Phone:</strong> (123) 456-7890</p>
+                <p><strong>Email:</strong> info@haircolorspa.com</p>
+                <p><strong>Hours:</strong> Mon - Sat: 9am - 7pm | Sun: Closed</p>
+            </div>
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HairColor & Spa Haven. All rights reserved.</p>
+        <div class="socials">
+            <a href="#" aria-label="Facebook"><i>FB</i></a>
+            <a href="#" aria-label="Instagram"><i>IG</i></a>
+            <a href="#" aria-label="Twitter"><i>TW</i></a>
+            <a href="#" aria-label="Pinterest"><i>PT</i></a>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        // Smooth scrolling for navigation links
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        for (const link of navLinks) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                const headerOffset = document.querySelector('nav').offsetHeight;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    </script>
+</body>
+</html>

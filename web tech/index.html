@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairColor & Spa | Login & Signup</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .auth-container {
+            background-color: #ffffff;
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .auth-header h2 {
+            color: #ff6b81;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6b81;
+        }
+
+        .tabs button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+            transition: color 0.3s;
+        }
+
+        .tabs button.active {
+            color: #ff6b81;
+            border-bottom: 3px solid #ff6b81;
+        }
+
+        .form-container {
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #ff6b81;
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #ff4755;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .toggle-link a {
+            color: #ff6b81;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .toggle-link a:hover {
+            color: #ff4755;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 400px) {
+            .auth-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .tabs button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .form-group button {
+                font-size: 14px;
+            }
+
+            .toggle-link a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>HairColor & Spa</h2>
+            <p>Welcome Back!</p>
+        </div>
+
+        <div class="tabs">
+            <button id="loginTab" class="active" onclick="showLogin()">Login</button>
+            <button id="signupTab" onclick="showSignup()">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form-container active">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            <div class="toggle-link">
+                <p>Don't have an account? <a onclick="showSignup()">Sign Up</a></p>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm" class="form-container">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="signupName">Full Name:</label>
+                    <input type="text" id="signupName" name="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email:</label>
+                    <input type="email" id="signupEmail" name="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div class="toggle-link">
+                <p>Already have an account? <a onclick="showLogin()">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show Login form
+        function showLogin() {
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('signupForm').classList.remove('active');
+            document.getElementById('loginTab').classList.add('active');
+            document.getElementById('signupTab').classList.remove('active');
+            document.querySelector('.auth-header p').textContent = "Welcome Back!";
+        }
+
+        // Function to show Signup form
+        function showSignup() {
+            document.getElementById('signupForm').classList.add('active');
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('signupTab').classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+            document.querySelector('.auth-header p').textContent = "Join Us!";
+        }
+
+        // Optional: Initialize with Login form active
+        window.onload = function() {
+            showLogin();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - HairColor & Spa Haven</title>
+    <link rel="stylesheet" href="css/styles.css">   
+    <style>
+        /* Additional Styles Specific to auth.html */
+
+        /* CSS Variables for Theme Colors */
+        :root {
+            --background-color: #000000; /* Pure Black */
+            --secondary-bg: #1a1a1a; /* Slightly Lighter Black */
+            --accent-color: #ff6b81; /* Vibrant Accent Color */
+            --accent-hover: #ff4755; /* Darker Accent on Hover */
+            --text-color: #f1f1f1; /* Light Text for Contrast */
+            --subtext-color: #cccccc; /* Subtle Text Color */
+            --border-color: #333333; /* Border Color for Inputs */
+            --shadow-color: rgba(255, 107, 129, 0.4); /* Enhanced Shadow Color */
+        }
+
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Britannic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: url('images/background-pattern.png'); /* Optional: Add a subtle background pattern */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Container Styles */
+        .auth-container {
+            background: var(--secondary-bg);
+            padding: 60px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            width: 100%;
+            max-width: 500px;
+            margin: 50px auto;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,129,0.2) 0%, rgba(26,26,26,0) 70%);
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .auth-container:hover::before {
+            opacity: 1;
+        }
+
+        .auth-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        /* Tab Navigation */
+        .auth-container .tab-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #444;
+        }
+
+        .auth-container .tab-nav button {
+            background: none;
+            border: none;
+            padding: 15px 35px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #bbb;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-family: 'Britannic', sans-serif;
+        }
+
+        .auth-container .tab-nav button.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+            font-family: 'Britannic Bold', sans-serif;
+        }
+
+        /* Form Styles */
+        .auth-container .form-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .auth-container .form-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .auth-container .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-container .form-container form label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-family: 'Britannic Bold', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .auth-container .form-container form input {
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            font-family: 'Britannic', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .auth-container .form-container form input::placeholder {
+            color: #888;
+        }
+
+        .auth-container .form-container form input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+            outline: none;
+        }
+
+        .auth-container .form-container form button {
+            padding: 12px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-family: 'Britannic', sans-serif;
+            font-size: 1rem;
+        }
+
+        .auth-container .form-container form button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        /* Toggle Link */
+        .auth-container .form-container .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #bbb;
+            font-size: 0.95rem;
+            font-family: 'Britannic', sans-serif;
+        }
+
+        .auth-container .form-container .toggle-link a {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-family: 'Britannic', sans-serif;
+        }
+
+        .auth-container .form-container .toggle-link a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Responsive Styles for auth.html */
+        @media (max-width: 600px) {
+            .auth-container {
+                padding: 40px 30px;
+            }
+
+            .auth-container .tab-nav button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+
+            .auth-container .form-container form input {
+                font-size: 0.95rem;
+            }
+
+            .auth-container .form-container form button {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="tab-nav">
+            <button id="loginTabBtn" class="active" onclick="showTab('login')">Login</button>
+            <button id="signupTabBtn" onclick="showTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="form-container active">
+            <form action="process_login.php" method="post">
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email" required>
+
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+
+                <button type="submit">Login</button>
+            </form>
+            <div class="toggle-link">
+                <p>Don't have an account? <a href="#signup" onclick="showTab('signup')">Sign Up</a></p>
+            </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signup" class="form-container">
+            <form action="process_signup.php" method="post">
+                <label for="signupName">Full Name:</label>
+                <input type="text" id="signupName" name="signupName" placeholder="Enter your full name" required>
+
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="signupEmail" placeholder="Enter your email" required>
+
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="toggle-link">
+                <p>Already have an account? <a href="#login" onclick="showTab('login')">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Tab Switching -->
+    <script>
+        function showTab(tabName) {
+            const loginTab = document.getElementById('loginTabBtn');
+            const signupTab = document.getElementById('signupTabBtn');
+            const loginForm = document.getElementById('login');
+            const signupForm = document.getElementById('signup');
+
+            if (tabName === 'login') {
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+            } else {
+                signupTab.classList.add('active');
+                loginTab.classList.remove('active');
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+            }
+        }
+
+        // Handle URL hash to open specific tab
+        window.onload = function() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'signup') {
+                showTab('signup');
+            } else {
+                showTab('login');
+            }
+        }
+    </script>
+</body>
+</html>

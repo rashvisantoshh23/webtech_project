@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairColor & Spa Haven</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b81;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6b81;
+        }
+
+        /* Add Login and Signup Buttons */
+        nav ul li.auth-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        nav ul li.auth-buttons button {
+            padding: 8px 16px;
+            margin-left: 10px;
+            background-color: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        nav ul li.auth-buttons button:hover {
+            background-color: #ff4755;
+        }
+
+        /* Header Styles */
+        header {
+            background: #000; /* Fallback color */
+            height: 100vh;
+            position: relative;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px; /* Adjust for fixed nav */
+            overflow: hidden; /* Hide overflow for carousel */
+        }
+
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation arrows */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            transition: background-color 0.3s;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Caption text */
+        .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f2f2f2;
+            font-size: 1.5rem;
+            padding: 8px 12px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 5px;
+        }
+
+        /* Dots/bullets/indicators */
+        .dots-container {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .active, .dot:hover {
+            background-color: #ff6b81;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Services Section */
+        #services {
+            background: #f9f9f9;
+        }
+
+        #services h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-10px);
+        }
+
+        .service img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .service h3 {
+            margin-bottom: 10px;
+            color: #ff6b81;
+        }
+
+        .service p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            text-align: center;
+        }
+
+        #gallery h2 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* About Us Section */
+        #about {
+            background: #f9f9f9;
+        }
+
+        #about h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-content img {
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .about-content div {
+            max-width: 600px;
+        }
+
+        .about-content h3 {
+            margin-bottom: 15px;
+            color: #ff6b81;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Blog Section */
+        #blog {
+            text-align: center;
+        }
+
+        #blog h2 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .blog-post {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-post img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .blog-post h3 {
+            margin-bottom: 10px;
+            color: #ff6b81;
+        }
+
+        .blog-post p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .blog-post a {
+            text-decoration: none;
+            color: #ff6b81;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .blog-post a:hover {
+            color: #ff4755;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #f9f9f9;
+        }
+
+        #contact h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #ff6b81;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 15px;
+            color: #ff6b81;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #ff4755;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer .socials a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        footer .socials a:hover {
+            color: #ff6b81;
+        }
+
+        /* Carousel Specific Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation arrows */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            transition: background-color 0.3s;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Caption text */
+        .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f2f2f2;
+            font-size: 1.5rem;
+            padding: 8px 12px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 5px;
+        }
+
+        /* Dots/bullets/indicators */
+        .dots-container {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .active, .dot:hover {
+            background-color: #ff6b81;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">HairColor & Spa</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <!-- Auth Buttons -->
+                <li class="auth-buttons">
+                    <button id="openLoginModal">Login</button>
+                    <button id="openSignupModal">Sign Up</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header / Home Section with Carousel -->
+    <header id="home">
+        <div class="carousel">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <img src="image1.jpg" alt="Salon Image 1">
+                <div class="caption">Transform Your Look</div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <img src="im2.jpg" alt="Salon Image 2">
+                <div class="caption">Relaxing Spa Treatments</div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <img src="im3.jpg" alt="Salon Image 3">
+                <div class="caption">Expert Hair Styling</div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="carousel-slide">
+                <img src="img4.jpg" alt="Salon Image 4">
+                <div class="caption">Beautiful Nail Art</div>
+            </div>
+
+            <!-- Navigation arrows -->
+            <a class="prev">&#10094;</a>
+            <a class="next">&#10095;</a>
+
+            <!-- Dots/Indicators -->
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-container">
+            <div class="service">
+                <img src="h2.jpg" alt="Hair Coloring">
+                <h3>Hair Coloring</h3>
+                <p>Expert colorists offering balayage, ombre, highlights, and custom color services to enhance your beauty.</p>
+            </div>
+            <div class="service">
+                <img src="hair1.jpg" alt="Hair Styling">
+                <h3>Hair Styling</h3>
+                <p>From elegant updos to trendy cuts, our stylists ensure you leave looking and feeling fabulous.</p>
+            </div>
+            <div class="service">
+                <img src="hair4.jpg" alt="Spa Treatments">
+                <h3>Spa Treatments</h3>
+                <p>Relax and rejuvenate with our range of spa services including massages, facials, and body treatments.</p>
+            </div>
+            <div class="service">
+                <img src="nail.jpg" alt="Nail Services">
+                <h3>Nail Services</h3>
+                <p>Manicures, pedicures, and nail art designed to pamper your hands and feet to perfection.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="w1.jpg" alt="Gallery Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="w2.jpg" alt="Gallery Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="w3.jpg" alt="Gallery Image 3">
+            </div>
+            <div class="gallery-item">
+                <img src="w8.jpg" alt="Gallery Image 4">
+            </div>
+            <div class="gallery-item">
+                <img src="w5.jpg" alt="Gallery Image 5">
+            </div>
+            <div class="gallery-item">
+                <img src="w7.jpg" alt="Gallery Image 6">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="about-content">
+            <img src="w9.jpg" alt="About Us Image">
+            <div>
+                <h3>Our Mission</h3>
+                <p>At HairColor & Spa Haven, our mission is to empower our clients by enhancing their natural beauty and providing a sanctuary for relaxation and rejuvenation.</p>
+                <p>With over 10 years of experience, our team of expert stylists and therapists are dedicated to delivering exceptional services tailored to your unique needs.</p>
+                <p>We believe in using high-quality, organic products to ensure the best results and a healthy experience for our clients.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <h2>Latest Blog Posts</h2>
+        <div class="blog-container">
+            <div class="blog-post">
+                <img src="b1.jpg" alt="Blog Post 1">
+                <h3>Top 5 Hair Color Trends for 2024</h3>
+                <p>Discover the hottest hair color trends that are set to dominate this year, from vibrant hues to subtle highlights.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="b2.jpg" alt="Blog Post 2">
+                <h3>Benefits of Regular Spa Treatments</h3>
+                <p>Learn how regular spa treatments can improve your physical and mental well-being, and why you should make them a part of your routine.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="b3.jpg" alt="Blog Post 3">
+                <h3>Choosing the Right Hair Color for Your Skin Tone</h3>
+                <p>Find out how to select a hair color that complements your skin tone and enhances your natural beauty.</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p><strong>Address:</strong> 123 Beauty Avenue, Glamour City, ST 45678</p>
+                <p><strong>Phone:</strong> (123) 456-7890</p>
+                <p><strong>Email:</strong> info@haircolorspa.com</p>
+                <p><strong>Hours:</strong> Mon - Sat: 9am - 7pm | Sun: Closed</p>
+            </div>
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 HairColor & Spa Haven. All rights reserved.</p>
+        <div class="socials">
+            <a href="#" aria-label="Facebook"><i>FB</i></a>
+            <a href="#" aria-label="Instagram"><i>IG</i></a>
+            <a href="#" aria-label="Twitter"><i>TW</i></a>
+            <a href="#" aria-label="Pinterest"><i>PT</i></a>
+        </div>
+    </footer>
+
+    <!-- Carousel Script -->
+    <script>
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("carousel-slide");
+        const dots = document.getElementsByClassName("dot");
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        // Initialize the carousel
+        function initCarousel() {
+            showSlide(slideIndex);
+            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        // Show the current slide
+        function showSlide(index) {
+            // Wrap around the index
+            if (index >= totalSlides) { slideIndex = 0; }
+            if (index < 0) { slideIndex = totalSlides - 1; }
+
+            // Hide all slides
+            for (let i = 0; i < totalSlides; i++) {
+                slides[i].style.display = "none";
+            }
+
+            // Remove 'active' class from all dots
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+
+            // Show the current slide and activate the corresponding dot
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].classList.add("active");
+        }
+
+        // Show the next slide
+        function nextSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        // Show the previous slide
+        function prevSlide() {
+            slideIndex--;
+            showSlide(slideIndex);
+        }
+
+        // Jump to a specific slide
+        function currentSlide(n) {
+            slideIndex = n - 1;
+            showSlide(slideIndex);
+            resetInterval();
+        }
+
+        // Reset the interval when user manually changes slide
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Event listeners for navigation arrows
+        document.querySelector(".prev").addEventListener("click", function() {
+            prevSlide();
+            resetInterval();
+        });
+
+        document.querySelector(".next").addEventListener("click", function() {
+            nextSlide();
+            resetInterval();
+        });
+
+        // Initialize the carousel when the page loads
+        window.onload = initCarousel;
+    </script>
+
+    <!-- Login/Signup Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-tabs">
+                <button id="loginTabBtn" class="active" onclick="toggleAuth('login')">Login</button>
+                <button id="signupTabBtn" onclick="toggleAuth('signup')">Sign Up</button>
+            </div>
+            <!-- Login Form -->
+            <div id="loginFormModal" class="modal-form active">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password:</label>
+                        <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="toggle-link">
+                    <p>Don't have an account? <a onclick="toggleAuth('signup')">Sign Up</a></p>
+                </div>
+            </div>
+            <!-- Signup Form -->
+            <div id="signupFormModal" class="modal-form">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="signupName">Full Name:</label>
+                        <input type="text" id="signupName" name="signupName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email:</label>
+                        <input type="email" id="signupEmail" name="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password:</label>
+                        <input type="password" id="signupPassword" name="signupPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </form>
+                <div class="toggle-link">
+                    <p>Already have an account? <a onclick="toggleAuth('login')">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel Navigation Script -->
+    <script>
+        // Carousel functionality is already handled above
+        // No additional scripts needed here
+    </script>
+
+    <!-- Modal Functionality Script -->
+    <script>
+        // Modal Functionality
+        const modal = document.getElementById('authModal');
+        const openLoginBtn = document.getElementById('openLoginModal');
+        const openSignupBtn = document.getElementById('openSignupModal');
+        const closeModalBtn = document.getElementsByClassName('close')[0];
+
+        // Open the modal when the login button is clicked
+        openLoginBtn.onclick = function() {
+            modal.style.display = 'block';
+            toggleAuth('login'); // Show login form by default
+        }
+
+        // Open the modal when the signup button is clicked
+        openSignupBtn.onclick = function() {
+            modal.style.display = 'block';
+            toggleAuth('signup'); // Show signup form by default
+        }
+
+        // Close the modal when the close button is clicked
+        closeModalBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Close the modal when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Toggle between Login and Signup forms within the modal
+        function toggleAuth(formType) {
+            const loginForm = document.getElementById('loginFormModal');
+            const signupForm = document.getElementById('signupFormModal');
+            const loginTab = document.getElementById('loginTabBtn');
+            const signupTab = document.getElementById('signupTabBtn');
+
+            if (formType === 'login') {
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else {
+                loginForm.classList.remove('active');
+                signupForm.classList.add('active');
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
