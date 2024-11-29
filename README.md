@@ -1,8 +1,9 @@
 # Hair Color and Spa Management System  
 
 Welcome to the Hair Color and Spa Management System, a web-based platform that simplifies the process of booking hair coloring and spa services. Whether you're a user looking to schedule an appointment or an administrator managing bookings, this system ensures a seamless experience for all.  
-
 ---
+![Screenshot (360)](https://github.com/user-attachments/assets/26b72896-4fda-45bd-ae62-f50a0502e376)
+
 
 ## 📖 Features  
 
